@@ -19,7 +19,8 @@ import type {
   AuthVerifyOtpResponse,
 } from '../types/api';
 
-export const API_BASE_URL = 'https://bosma-uz.onrender.com/api';
+export const API_BASE_URL =
+  import.meta.env.VITE_API_URL || 'https://bosma-uz.onrender.com/api';
 
 const ACCESS_TOKEN_KEY = 'bosma.accessToken';
 const REFRESH_TOKEN_KEY = 'bosma.refreshToken';
@@ -160,6 +161,9 @@ type ApiInternalAxiosRequestConfig = InternalAxiosRequestConfig & {
 export const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
   timeout: 30_000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
   // Needed if backend uses cookies in addition to bearer tokens.
   withCredentials: true,
 });
